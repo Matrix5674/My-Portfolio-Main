@@ -8,7 +8,7 @@ const nextConfig = {
   },
 
   // Configuration for static export and React Strict Mode
-  output: 'export', // Set output to "export" for static generation
+  //output: 'export', // Set output to "export" for static generation
   reactStrictMode: true, // Enable React Strict Mode for additional checks
 };
 
