@@ -1,10 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = { 
-    eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
+const nextConfig = {
+  // ESLint configuration (consider fixing errors for better code quality)
+  eslint: {
+    // Choose between ignoring or emitting warnings during production builds:
+    // - ignoreDuringBuilds: true (not recommended, can mask issues)
+    // - emitWarning: true (recommended, warns about potential problems)
   },
+
+  // Configuration for static export and React Strict Mode
+  output: 'export', // Set output to "export" for static generation
+  reactStrictMode: true, // Enable React Strict Mode for additional checks
 };
 
 export default nextConfig;
