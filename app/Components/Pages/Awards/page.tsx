@@ -5,8 +5,8 @@ import {motion} from "framer-motion"
 
 export default function Awards() {
   return (
-    <main data-theme={Theme} style={{display: "flex", flexWrap: "wrap", marginTop: "100px"}}>
-      <div className= "ml-[200px]">
+    <main data-theme={Theme} style={{display: "flex", flexWrap: "wrap", marginTop: "75px"}}>
+      <div className= "">
       <p className="text-6xl w-56 h-24 hover:text-gray-400" style={{marginBottom: "50px", textDecoration: "underline",textUnderlineOffset:"15px"}}> Awards</p>
 
       <div style={{ display: "flex", flexDirection: "row"}}>
