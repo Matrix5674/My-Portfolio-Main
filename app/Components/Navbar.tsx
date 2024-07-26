@@ -1,14 +1,16 @@
 'use client'
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import AnimatedText from './AnimatedText';
 import Theme from './Theme';
 import { useRouter } from "next/navigation";
 import Link from 'next/link';
-import Image from 'next/image'
+import Image from 'next/image';
 
 const Navbar = () => {
     const router = useRouter();
+    const [isVisible, setIsVisible] = useState<boolean>(true);
+    const idleTimerRef = useRef<NodeJS.Timeout | null>(null);
 
     const navPressed = useCallback((element_id: string) => {
         const element = document.getElementById(element_id);
@@ -17,14 +19,20 @@ const Navbar = () => {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            document.addEventListener("DOMContentLoaded", function () {
+            const handleDOMContentLoaded = () => {
                 document.getElementById("navbar")?.animate({ opacity: [0, 1] }, 1000);
-            });
+            };
+            document.addEventListener("DOMContentLoaded", handleDOMContentLoaded);
+            
+            // Cleanup
+            return () => {
+                document.removeEventListener("DOMContentLoaded", handleDOMContentLoaded);
+            };
         }
     }, []);
 
     return (
-        <div data-theme={Theme} id="navbar" className="flex-row justify-center">
+        <div data-theme={Theme} id="navbar" className="flex-row justify-center" style={{ opacity: isVisible ? 1 : 0 }}>
             <div className="navbar bg-neutral text-neutral-content justify-between">
                 <div className="flex-row">
                     <div className="spinner ml-2 mr-2">
@@ -35,7 +43,7 @@ const Navbar = () => {
                         <div></div>
                         <div></div>
                     </div>
-                    <AnimatedText once className='text-xl hover:text-success ml-5 font-bold' speed={0.1} text="My Portfolio"></AnimatedText>
+                    <AnimatedText once className='text-xl hover:text-success ml-5 font-bold' speed={0.1} text="My Portfolio" />
                 </div>
                 <ul className="">
                     <motion.button onClick={() => navPressed('Home')} className="btn btn-ghost text-xl hover:underline hover:text-warning transition-all duration-200 opacity-0" animate={{ opacity: 1 }} transition={{ duration: 4 }}>Home</motion.button>

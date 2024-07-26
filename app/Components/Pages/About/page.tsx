@@ -1,27 +1,30 @@
-'use client'
-import Router from 'next/router'
-import React, { useEffect, useRef, useState, useCallback } from 'react'
-import Theme from '../../Theme'
-import Card from '../../Card'
-import { useScroll } from 'framer-motion';
-import throttle from 'lodash/throttle';  // Correct import for lodash.throttle
+"use client"
 
-export default function About() {
-  
+import { useRef, useState, useEffect } from 'react';
+import Theme from '../../Theme';
+import Card from '../../Card';
+import { useScroll } from 'framer-motion';
+import throttle from 'lodash/throttle';
+
+interface AboutProps {
+  data: any[][];
+}
+
+const About: React.FC<AboutProps> = ({ data }) => {
+
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: aboutRef,
     offset: ["start end", "end end"]
   });
   const [aboutOpacity, setAboutOpacity] = useState(0);
-  const [hasScrolledPast, sethasScrolledPast] = useState<boolean>(false);
   
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const handleScroll: EventListener = throttle(() => {
         const scrollTop = window.scrollY;
         const aboutElement = aboutRef.current;
-
         if (aboutElement) { 
           const viewportHeight = window.innerHeight;
           const aboutRect = aboutElement.getBoundingClientRect();
@@ -70,9 +73,16 @@ export default function About() {
         <div className="text-neutral-content" style={{ marginTop: "30px", paddingTop: "10px", paddingBottom: "10px", fontFamily: "OCR B Letterpress M W01 Regular" }}>
           <p className="text-3xl text-warning hover:font-bold hover:underline">Experience</p>
           <div style={{ display: "flex", justifyContent: "row" }}>
-            <Card title="Software Engineer" description="Worked as a Software Engineer at Robotics for All" btnTxt="About RFA" skills={["Python", "AI", "Slack"]} skillqnt={3} link=''></Card>
-            <Card title="Website Developer" description="Offered freelancing services to various startups and businessmen" btnTxt="About RFA" skills={["Python", "AI", "Slack"]} link='' skillqnt={3}></Card>
-            <Card title="School Leadership" description="Elected as one of 4 leaders for my class" btnTxt="About FHS" skills={["Python", "AI", "Slack"]} skillqnt={3} link=''></Card>
+            {data.map((row: string[], index: any) => (
+              <Card
+                title={row[0]}
+                description = {row[1]}
+                btnTxt={row[3]}
+                skills={row[2].split(", ")}
+                skillqnt={row[2].split(", ").length}
+                link={row[4]}
+              ></Card>
+            ))}
           </div>
         </div>
         <div className="text-neutral-content" style={{ marginTop: "30px", paddingTop: "10px", paddingBottom: "10px", fontFamily: "OCR B Letterpress M W01 Regular" }}>
@@ -87,3 +97,4 @@ export default function About() {
     </main>
   )
 }
+export default About;
