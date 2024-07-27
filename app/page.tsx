@@ -11,9 +11,7 @@ import SocialBar from './Components/SocialBar';
 import Navbar from './Components/Navbar';
 import Home from './Components/Pages/Home/page';
 
-export default function Main() {
-  console.log('Private Key:', process.env.GOOGLE_PRIVATE_KEY);
-  console.log('Client Email:', process.env.GOOGLE_CLIENT_EMAIL);
+export default function page() {
   
 
   return (

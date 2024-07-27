@@ -1,31 +1,30 @@
-"use client"
+"use client";
 
 import { useRef, useState, useEffect } from 'react';
 import Theme from '../../Theme';
 import Card from '../../Card';
 import { useScroll } from 'framer-motion';
 import throttle from 'lodash/throttle';
+import { PageProps } from '@/.next/types/app/Components/Pages/About/page';
 
-interface AboutProps {
-  data: any[][];
+export interface AboutProps extends PageProps {
+  data?: any[][];
 }
 
-const About: React.FC<AboutProps> = ({ data }) => {
-
+const About: React.FC<AboutProps> = ({ data, params, searchParams }) => {
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: aboutRef,
     offset: ["start end", "end end"]
   });
   const [aboutOpacity, setAboutOpacity] = useState(0);
-  
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const handleScroll: EventListener = throttle(() => {
         const scrollTop = window.scrollY;
         const aboutElement = aboutRef.current;
-        if (aboutElement) { 
+        if (aboutElement) {
           const viewportHeight = window.innerHeight;
           const aboutRect = aboutElement.getBoundingClientRect();
           const scrollProgress = Math.min(
@@ -39,12 +38,11 @@ const About: React.FC<AboutProps> = ({ data }) => {
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
     }
-    
   }, []);
 
   return (
     <main data-theme={Theme}>
-      <div ref={aboutRef} style={{marginTop: "75px", opacity: aboutOpacity }}>
+      <div ref={aboutRef} style={{ marginTop: "75px", opacity: aboutOpacity }}>
         <div style={{ paddingTop: "30px", fontFamily: "OCR B Letterpress M W01 Regular" }}>
           <p className="text-7xl w-56 h-24 hover:text-gray-400" style={{ marginBottom: "50px", textDecoration: "underline", textUnderlinePosition: "under" }}>About</p>
           <p className="text-3xl text-warning hover:font-bold hover:underline">Skills</p>
@@ -65,36 +63,38 @@ const About: React.FC<AboutProps> = ({ data }) => {
             <button style={{ marginRight: "60px", marginTop: "15px" }} className="btn bg-red-600 hover:bg-red-900 text-black min-w-20 hover:rotate-3">Ubuntu</button>
             <button style={{ marginRight: "60px", marginTop: "15px" }} className="btn bg-orange-400 text-black min-w-20 hover:bg-orange-800 hover:rotate-3">Java</button>
             <button style={{ marginRight: "60px", marginTop: "15px" }} className="btn bg-sky-600 text-black min-w-20 hover:bg-sky-800 hover:rotate-3">Python</button>
-            <button style={{ marginRight: "60px", marginTop: "15px" }} className="btn bg-purple-400 text-black min-w-20 hover:bg-purple-600 hover:rotate-3">C</button>
-            <button style={{ marginRight: "60px", marginTop: "15px" }} className="btn bg-white text-black min-w-20 hover:bg-gray-400 hover:rotate-3">C++</button>
-            <button style={{ marginRight: "60px", marginTop: "15px" }} className="btn bg-green-500 text-black min-w-20 hover:bg-green-800 hover:rotate-3">AI</button>
+            <button style={{ marginRight: "60px", marginTop: "15px" }} className="btn bg-purple-400 text-black min-w-20 hover:rotate-3">C</button>
+            <button style={{ marginRight: "60px", marginTop: "15px" }} className="btn bg-white text-black min-w-20 hover:rotate-3">C++</button>
+            <button style={{ marginRight: "60px", marginTop: "15px" }} className="btn bg-green-500 text-black min-w-20 hover:rotate-3">AI</button>
           </div>
         </div>
         <div className="text-neutral-content" style={{ marginTop: "30px", paddingTop: "10px", paddingBottom: "10px", fontFamily: "OCR B Letterpress M W01 Regular" }}>
           <p className="text-3xl text-warning hover:font-bold hover:underline">Experience</p>
           <div style={{ display: "flex", justifyContent: "row" }}>
-            {data.map((row: string[], index: any) => (
+            {data && data.map((row: any[], index: number) => (
               <Card
+                key={index}
                 title={row[0]}
-                description = {row[1]}
+                description={row[1]}
                 btnTxt={row[3]}
                 skills={row[2].split(", ")}
                 skillqnt={row[2].split(", ").length}
                 link={row[4]}
-              ></Card>
+              />
             ))}
           </div>
         </div>
         <div className="text-neutral-content" style={{ marginTop: "30px", paddingTop: "10px", paddingBottom: "10px", fontFamily: "OCR B Letterpress M W01 Regular" }}>
           <p className="text-3xl text-warning hover:font-bold hover:underline">Certifications</p>
           <div style={{ display: "flex", justifyContent: "row" }}>
-            <Card title="CS50 Intro to Computer Science" description="CS50 Intro to Computer Science" btnTxt="About CS50x" skills={["C", "Python", "HTML", "CSS", "SQL"]} skillqnt={3} link=''></Card>
-            <Card title="CS50 Intro to Python" description="CS50 Intro to Python" btnTxt="About CS50P" skills={["Python", "AI", "CS50"]} link='' skillqnt={3}></Card>
-            <Card title="CS50 Intro to Web Development" description="CS50 Intro to Web Development" btnTxt="CS50W" skills={["Python", "AI", "Slack"]} skillqnt={3} link=''></Card>
+            <Card title="CS50 Intro to Computer Science" description="CS50 Intro to Computer Science" btnTxt="About CS50x" skills={["C", "Python", "HTML", "CSS", "SQL"]} skillqnt={5} link='' />
+            <Card title="CS50 Intro to Python" description="CS50 Intro to Python" btnTxt="About CS50P" skills={["Python", "AI", "CS50"]} skillqnt={3} link='' />
+            <Card title="CS50 Intro to Web Development" description="CS50 Intro to Web Development" btnTxt="CS50W" skills={["Python", "AI", "Slack"]} skillqnt={3} link='' />
           </div>
         </div>
       </div>
     </main>
   )
 }
+
 export default About;

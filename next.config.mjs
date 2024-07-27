@@ -11,10 +11,14 @@ const nextConfig = {
   //output: 'export', // Set output to "export" for static generation
   reactStrictMode: true, // Enable React Strict Mode for additional checks
   
-  // Configuration for images
-  images: {
-    domains: ['img.icons8.com'], // Add the domains you need for external images
-  },
-};
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: '**',
+        },
+      ],
+    },
+  }
 
 export default nextConfig;
