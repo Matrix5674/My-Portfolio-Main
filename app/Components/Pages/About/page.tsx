@@ -9,9 +9,10 @@ import { PageProps } from '@/.next/types/app/Components/Pages/About/page';
 
 export interface AboutProps extends PageProps {
   data?: any[][];
+  data2?: any[][];
 }
 
-const About: React.FC<AboutProps> = ({ data, params, searchParams }) => {
+const About: React.FC<AboutProps> = ({ data, data2, params, searchParams }) => {
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: aboutRef,
@@ -87,9 +88,17 @@ const About: React.FC<AboutProps> = ({ data, params, searchParams }) => {
         <div className="text-neutral-content" style={{ marginTop: "30px", paddingTop: "10px", paddingBottom: "10px", fontFamily: "OCR B Letterpress M W01 Regular" }}>
           <p className="text-3xl text-warning hover:font-bold hover:underline">Certifications</p>
           <div style={{ display: "flex", justifyContent: "row" }}>
-            <Card title="CS50 Intro to Computer Science" description="CS50 Intro to Computer Science" btnTxt="About CS50x" skills={["C", "Python", "HTML", "CSS", "SQL"]} skillqnt={5} link='' />
-            <Card title="CS50 Intro to Python" description="CS50 Intro to Python" btnTxt="About CS50P" skills={["Python", "AI", "CS50"]} skillqnt={3} link='' />
-            <Card title="CS50 Intro to Web Development" description="CS50 Intro to Web Development" btnTxt="CS50W" skills={["Python", "AI", "Slack"]} skillqnt={3} link='' />
+            {data2 && data2.map((row: any[], index: number) => (
+              <Card
+                key={index}
+                title={row[0]}
+                description={row[1]}
+                btnTxt={row[3]}
+                skills={row[2].split(", ")}
+                skillqnt={row[2].split(", ").length}
+                link={row[4]}
+              />
+            ))}
           </div>
         </div>
       </div>
