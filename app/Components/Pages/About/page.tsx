@@ -5,7 +5,7 @@ import Theme from '../../Theme';
 import Card from '../../Card';
 import { useScroll } from 'framer-motion';
 import throttle from 'lodash/throttle';
-import { PageProps } from '@/.next/types/app/Components/Pages/About/page';
+import { PageProps } from '@/.next/types/app/page';
 
 export interface AboutProps extends PageProps {
   data?: any[][];

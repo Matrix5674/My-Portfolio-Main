@@ -10,6 +10,7 @@ import Awards from './Components/Pages/Awards/page'; // Note: Awards is commente
 import SocialBar from './Components/SocialBar';
 import Navbar from './Components/Navbar';
 import Home from './Components/Pages/Home/page';
+import DataFetcherProjects from './dataFetcherProjects';
 
 export default function page() {
   
@@ -35,7 +36,7 @@ export default function page() {
         <DataFetcher />
       </div>
       <div id="Projects" className="relative mb-10 ml-[200px]">
-        <Projects />
+        <DataFetcherProjects />
       </div>
       {/* <div id="Awards"><Awards /></div> */}
     </main>

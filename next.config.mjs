@@ -1,3 +1,5 @@
+
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // ESLint configuration (consider fixing errors for better code quality)
@@ -8,17 +10,13 @@ const nextConfig = {
   },
 
   // Configuration for static export and React Strict Mode
-  output: 'export', // Set output to "export" for static generation
+  //output: 'export', // Set output to "export" for static generation
   reactStrictMode: true, // Enable React Strict Mode for additional checks
-  
-    images: {
-      remotePatterns: [
-        {
-          protocol: 'https',
-          hostname: '**',
-        },
-      ],
-    },
-  }
+
+  images: {
+    loader: 'custom',
+    loaderFile: './imageloader.js',
+  },
+}
 
 export default nextConfig;

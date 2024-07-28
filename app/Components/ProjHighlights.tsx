@@ -7,8 +7,8 @@ interface ProjHighlightsProps {
   description: string;
   link: string;
   btnTxt: string;
-  imgUnder: StaticImageData;
-  imgTop: StaticImageData;
+  imgUnder: string;
+  imgTop: string;
 }
 
 const ProjHighlights: React.FC<ProjHighlightsProps> = ({ title, description, link, btnTxt, imgUnder, imgTop }) => {
