@@ -16,7 +16,7 @@ const Skills: React.FC<{ skills: string[] }> = ({ skills }) => {
       {skills.map((skill, index) => (
         <a
           key={index}
-          className="px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          className="px-3 py-2 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none  bg-green-600 hover:bg-green-700 focus:ring-green-800"
           style={{ marginBottom: '10px' }}
         >
           {skill}
@@ -36,7 +36,7 @@ const Card: React.FC<CardProps> = ({ title, description, skills, btnTxt, link })
       <div className="flex flex-col h-full justify-between">
         <div>
           <a href="#">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight dark:text-white hover:text-success">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white hover:text-success">
               {title}
             </h5>
           </a>
